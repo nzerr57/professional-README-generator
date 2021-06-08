@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -16,11 +17,6 @@ const questions = [
     },
     {
         type: 'input',
-        message: "create table of contents",
-        name: 'table-of-contents',
-    },
-    {
-        type: 'input',
         message: 'Please enter installation instructions',
         name: 'installation',
     },
@@ -33,48 +29,37 @@ const questions = [
         type: 'list',
         message: 'Choose a license for your project',
         name: 'license',
-        choices: ['MIT', 'option B', 'option C'],
+        choices: ['MIT', 'Apache', 'BSD'],
     },
     {
         type: 'input',
-        message:'Enter information about contributing member',
-        name: 'contributing',
+        message: 'Enter information about contributing members',
+        name: 'contributors',
     },
     {
         type: 'input',
         message: 'What is your GitHub username?',
-        message: 'What is your email address?',
-        name: 'questions',
+        name: 'github',
+    },
+    {
+        type: 'input',
+        message: 'What is your email address',
+        name: 'email',
     }];
 
-    // inquirer
-    //     .prompt(questions)
-
-TODO: Create a function to write README file
-function writeToFile(fileName, data) { 
-    const data = JSON.stringify(response, null, 2);
-
-    for (let i=2; i < process.argv.length; i++;) {
-
-    }
-    fs.writeFile('READMEEXAMPLE.md', process.argv[2], (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Success');
-        }
-    }
-    );}
-
-/* fs.writeFile('README.md', response, (err) =>
-  err ? console.error(err) : console.log('Success!')
-); */
+//TODO: Create a function to write README file
+const writeToFile = (answers) => {
+    fs.writeFile("README.md", generateMarkdown(answers), (err) => {
+        err ? console.log(err) : console.log('README has been created')
+    });
+}
 
 // TODO: Create a function to initialize app
-function init() { 
-    inquirer
-        .prompt(questions)
+const init = () => {
+    inquirer.prompt(questions).then(writeToFile);
 }
+
+
 
 // Function call to initialize app
 init();
