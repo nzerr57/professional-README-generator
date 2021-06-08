@@ -29,7 +29,7 @@ const questions = [
         type: 'list',
         message: 'Choose a license for your project',
         name: 'license',
-        choices: ['MIT', 'Apache', 'BSD'],
+        choices: ['MIT', 'Apache 2.0', 'BSD 3-Clause', 'None'],
     },
     {
         type: 'input',
@@ -49,7 +49,7 @@ const questions = [
 
 //TODO: Create a function to write README file
 const writeToFile = (answers) => {
-    fs.writeFile("README.md", generateMarkdown(answers), (err) => {
+    fs.writeFile("exampleREADME.md", generateMarkdown(answers), (err) => {
         err ? console.log(err) : console.log('README has been created')
     });
 }
